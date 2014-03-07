@@ -1,13 +1,11 @@
-package serena
-
-
+<%=packageName ? "package ${packageName}\n\n" : ''%>
 
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(MemberController)
-@Mock(Member)
-class MemberControllerSpec extends Specification {
+@TestFor(${className}Controller)
+@Mock(${className})
+class ${className}ControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
@@ -21,8 +19,8 @@ class MemberControllerSpec extends Specification {
             controller.index()
 
         then:"The model is correct"
-            !model.memberInstanceList
-            model.memberInstanceCount == 0
+            !model.${modelName}List
+            model.${modelName}Count == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -30,32 +28,32 @@ class MemberControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.memberInstance!= null
+            model.${modelName}!= null
     }
 
     void "Test the save action correctly persists an instance"() {
 
         when:"The save action is executed with an invalid instance"
             request.contentType = FORM_CONTENT_TYPE
-            def member = new Member()
-            member.validate()
-            controller.save(member)
+            def ${propertyName} = new ${className}()
+            ${propertyName}.validate()
+            controller.save(${propertyName})
 
         then:"The create view is rendered again with the correct model"
-            model.memberInstance!= null
+            model.${modelName}!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            member = new Member(params)
+            ${propertyName} = new ${className}(params)
 
-            controller.save(member)
+            controller.save(${propertyName})
 
         then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/member/show/1'
+            response.redirectedUrl == '/${propertyName}/show/1'
             controller.flash.message != null
-            Member.count() == 1
+            ${className}.count() == 1
     }
 
     void "Test that the show action returns the correct model"() {
@@ -67,11 +65,11 @@ class MemberControllerSpec extends Specification {
 
         when:"A domain instance is passed to the show action"
             populateValidParams(params)
-            def member = new Member(params)
-            controller.show(member)
+            def ${propertyName} = new ${className}(params)
+            controller.show(${propertyName})
 
         then:"A model is populated containing the domain instance"
-            model.memberInstance == member
+            model.${modelName} == ${propertyName}
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -83,11 +81,11 @@ class MemberControllerSpec extends Specification {
 
         when:"A domain instance is passed to the edit action"
             populateValidParams(params)
-            def member = new Member(params)
-            controller.edit(member)
+            def ${propertyName} = new ${className}(params)
+            controller.edit(${propertyName})
 
         then:"A model is populated containing the domain instance"
-            model.memberInstance == member
+            model.${modelName} == ${propertyName}
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -96,28 +94,28 @@ class MemberControllerSpec extends Specification {
             controller.update(null)
 
         then:"A 404 error is returned"
-            response.redirectedUrl == '/member/index'
+            response.redirectedUrl == '/${propertyName}/index'
             flash.message != null
 
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def member = new Member()
-            member.validate()
-            controller.update(member)
+            def ${propertyName} = new ${className}()
+            ${propertyName}.validate()
+            controller.update(${propertyName})
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.memberInstance == member
+            model.${modelName} == ${propertyName}
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            member = new Member(params).save(flush: true)
-            controller.update(member)
+            ${propertyName} = new ${className}(params).save(flush: true)
+            controller.update(${propertyName})
 
         then:"A redirect is issues to the show action"
-            response.redirectedUrl == "/member/show/$member.id"
+            response.redirectedUrl == "/${propertyName}/show/\$${propertyName}.id"
             flash.message != null
     }
 
@@ -127,23 +125,23 @@ class MemberControllerSpec extends Specification {
             controller.delete(null)
 
         then:"A 404 is returned"
-            response.redirectedUrl == '/member/index'
+            response.redirectedUrl == '/${propertyName}/index'
             flash.message != null
 
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def member = new Member(params).save(flush: true)
+            def ${propertyName} = new ${className}(params).save(flush: true)
 
         then:"It exists"
-            Member.count() == 1
+            ${className}.count() == 1
 
         when:"The domain instance is passed to the delete action"
-            controller.delete(member)
+            controller.delete(${propertyName})
 
         then:"The instance is deleted"
-            Member.count() == 0
-            response.redirectedUrl == '/member/index'
+            ${className}.count() == 0
+            response.redirectedUrl == '/${propertyName}/index'
             flash.message != null
     }
 }

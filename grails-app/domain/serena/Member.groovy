@@ -10,12 +10,12 @@ class Member {
     String town
     String dept
     String tel
-    String dob
+    Date dateOfBirth
     Boolean dmPresent
     Boolean cancelled
     Boolean dead
     String vision
-    String earing
+    String hearing
     String mobility
     String understanding
     String doctorFirstname
@@ -26,33 +26,51 @@ class Member {
     String doctorPhoneMobile
     String doctorFax
     String doctorInfo
+    Integer getAge() {
+        return dateOfBirth.age();
+    }
+    Date dateCreated
+    Date lastUpdated
+
+    static transients = [ 'age' ]
+
+    static hasMany = [
+            pathologies: Pathology,
+            treatments: Treatment
+    ]
+
+//    static mapping = {
+//        autoTimestamp true
+//    }
 
     static constraints = {
-        number blank: false
-        lastname blank: false
-        firstname blank: false
-        address()
-        address2()
-        postalCode()
+        number blank: false, size: 3..8
+        lastname blank: false, size: 2..30
+        firstname blank: false, size: 2..30
+        address nullable: true
+        address2 nullable: true
+        postalCode nullable: true, size: 5..5
         town blank: false
         dept blank: false
-        dob nullable: false
+        tel()
+        dateOfBirth nullable: false
+        age()
         dmPresent()
         cancelled()
         dead()
-        vision inList: ["GOOD","AVERAGE","BAD","VERY_BAD"]
-        earing inList: ["GOOD","AVERAGE","BAD","VERY_BAD"]
-        mobility inList: ["GOOD","AVERAGE","BAD","VERY_BAD"]
-        understanding inList: ["GOOD","AVERAGE","BAD","VERY_BAD"]
-        doctorFirstname()
-        doctorLastname()
-        doctorPhone()
-        doctorPhoneNight()
-        doctorPhoneMobile()
-        doctorFax()
-        doctorEmail()
-        doctorInfo()
+        vision inList: ["GOOD","AVERAGE","BAD","VERY_BAD"], nullable: true
+        hearing inList: ["GOOD","AVERAGE","BAD","VERY_BAD"], nullable: true
+        mobility inList: ["GOOD","AVERAGE","BAD","VERY_BAD"], nullable: true
+        understanding inList: ["GOOD","AVERAGE","BAD","VERY_BAD"], nullable: true
+        pathologies()
+        treatments()
+        doctorFirstname nullable: true
+        doctorLastname nullable: true
+        doctorPhone nullable: true
+        doctorPhoneNight nullable: true
+        doctorPhoneMobile nullable: true
+        doctorFax nullable: true
+        doctorEmail nullable: true, email: true
+        doctorInfo nullable: true
     }
-
-    static transients = [ "age" ]
 }

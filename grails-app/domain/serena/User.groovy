@@ -5,12 +5,9 @@ class User {
     String login
     String password
     String role = "user"
+    boolean isAdmin() { role == "admin" }
 
     static transients = ['admin']
-
-    boolean isAdmin() {
-        role == "admin"
-    }
 
     static constraints = {
         name blank: false, size: 3..30

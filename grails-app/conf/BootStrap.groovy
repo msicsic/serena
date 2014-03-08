@@ -1,3 +1,5 @@
+import serena.User
+
 class BootStrap {
 
     static def age(Date date) {
@@ -13,7 +15,8 @@ class BootStrap {
 
     def init = { servletContext ->
         Date.metaClass.age = { -> age(delegate) }
-
+        User user1 = new User(login: "login1", password: "password", name: "User", role: "user").save()
+        User user2 = new User(login: "login2", password: "password", name: "Admin", role: "admin").save()
     }
 
 

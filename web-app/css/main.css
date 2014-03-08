@@ -24,6 +24,14 @@ html {
 	        box-sizing: border-box;
 }
 
+.login {
+    border: 1px;
+    margin-left: auto;
+    margin-right: auto;
+    border-color: #EEEEEE
+
+}
+
 html.no-cssgradients {
 	background-color: #aaa;
 }

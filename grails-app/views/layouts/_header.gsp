@@ -1,1 +1,1 @@
-<div class="header" role="banner">Serena</div>
+<div class="header" role="banner"></div>

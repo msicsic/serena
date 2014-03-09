@@ -26,22 +26,26 @@ class Member {
     String doctorPhoneMobile
     String doctorFax
     String doctorInfo
+
     Integer getAge() {
         return dateOfBirth.age();
     }
+
     Date dateCreated
     Date lastUpdated
 
-    static transients = [ 'age' ]
+    static transients = ['age']
 
     static hasMany = [
             pathologies: Pathology,
             treatments: Treatment
     ]
 
-//    static mapping = {
-//        autoTimestamp true
-//    }
+    static mapping = {
+        autoTimestamp true
+        pathologies cascade: "all-delete-orphan"
+        treatments cascade: "all-delete-orphan"
+    }
 
     static constraints = {
         number blank: false, size: 3..8
@@ -58,10 +62,10 @@ class Member {
         dmPresent()
         cancelled()
         dead()
-        vision inList: ["GOOD","AVERAGE","BAD","VERY_BAD"], nullable: true
-        hearing inList: ["GOOD","AVERAGE","BAD","VERY_BAD"], nullable: true
-        mobility inList: ["GOOD","AVERAGE","BAD","VERY_BAD"], nullable: true
-        understanding inList: ["GOOD","AVERAGE","BAD","VERY_BAD"], nullable: true
+        vision inList: ["GOOD", "AVERAGE", "BAD", "VERY_BAD"], nullable: true
+        hearing inList: ["GOOD", "AVERAGE", "BAD", "VERY_BAD"], nullable: true
+        mobility inList: ["GOOD", "AVERAGE", "BAD", "VERY_BAD"], nullable: true
+        understanding inList: ["GOOD", "AVERAGE", "BAD", "VERY_BAD"], nullable: true
         pathologies()
         treatments()
         doctorFirstname nullable: true

@@ -24,10 +24,6 @@
             <fieldset>
                 <legend>Welcome to Serena</legend>
 
-                <g:if test="${flash.message}">
-                    <div class="message">${flash.message}</div>
-                </g:if>
-
                 <div class="pure-control-group">
                     <label for="login">Login</label>
                     <input type="text" id="login" name="login"/>
@@ -43,6 +39,10 @@
                 </div>
             </fieldset>
         </g:form>
+        <g:if test="${flash.message}">
+            <div class="message">${flash.message}</div>
+        </g:if>
+
         <g:render template="/layouts/footer"/>
     </div>
 </div>

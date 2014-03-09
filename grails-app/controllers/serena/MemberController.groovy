@@ -19,7 +19,15 @@ class MemberController {
     }
 
     def create() {
-        [memberInstance: new Member(params)]
+        session.member = new Member(params)
+        [memberInstance: session.member]
+    }
+
+    def addPathology() {
+        Member member = session.member;
+        member.addToPathologies(new Pathology())
+        [memberInstance: session.member]
+        render (view: "member")
     }
 
     @Transactional

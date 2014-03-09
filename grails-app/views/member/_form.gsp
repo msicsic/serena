@@ -155,22 +155,6 @@
 
 </div>
 
-<div class="pure-control-group fieldcontain ${hasErrors(bean: memberInstance, field: 'pathologies', 'error')} ">
-	<label for="pathologies">
-		<g:message code="member.pathologies.label" default="Pathologies" />
-		
-	</label>
-	
-<ul class="one-to-many">
-<g:each in="${memberInstance?.pathologies?}" var="p">
-    <li><g:link controller="pathology" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="pathology" action="create" params="['member.id': memberInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'pathology.label', default: 'Pathology')])}</g:link>
-</li>
-</ul>
-</div>
-
 <div class="pure-control-group fieldcontain">
     <label for="">
     <g:message code="member.pathologies.label" default="Pathologies" />
@@ -182,6 +166,7 @@
             <td>dosage</td>
             <td>posology</td>
             <td>comment</td>
+            <td></td>
         </tr>
         </thead>
         <tbody>
@@ -198,24 +183,10 @@
             <td><g:textField name="dosage" required="true" value="${pathology?.dosage}"/></td>
             <td><g:textField name="posology" required="true" value="${pathology?.posology}"/></td>
             <td><g:textField name="comment" required="true" value="${pathology?.comment}"/></td>
+            <td><g:remoteLink value="add" controller="member" action="addPathology" class="pure-button">zef</g:remoteLink></td>
         </tr>
         </tbody>
     </table>
-</div>
-
-<div class="pure-control-group fieldcontain ${hasErrors(bean: memberInstance, field: 'treatments', 'error')} ">
-	<label for="treatments">
-		<g:message code="member.treatments.label" default="Treatments" />
-	</label>
-	
-<ul class="one-to-many">
-<g:each in="${memberInstance?.treatments?}" var="t">
-    <li><g:link controller="treatment" action="show" id="${t.id}">${t?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="treatment" action="create" params="['member.id': memberInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'treatment.label', default: 'Treatment')])}</g:link>
-</li>
-</ul>
 </div>
 
 <div class="pure-control-group fieldcontain ${hasErrors(bean: memberInstance, field: 'doctorFirstname', 'error')} ">

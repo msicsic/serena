@@ -1,0 +1,13 @@
+-> Mettre en place l'ajout des sous objets depuis le form principal :
+http://www.objectpartners.com/2012/10/04/an-approach-to-processing-dynamic-one-to-many-forms-with-grails-2-1/
+
+-> Mettre en place l'historisation
+http://blog.andresteingress.com/2014/01/31/grails-audit-logging/
+
+-> envoi de mails ?
+http://grails.org/plugin/mail
+
+-> calcul de l'age en temps reel avec ajax ?
+http://javadeveloper.asia/grails-ajax-tutorial-remotelink-tag/
+
+
